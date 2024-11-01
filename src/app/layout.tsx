@@ -14,11 +14,10 @@ const font = Outfit({ subsets: ["latin"] });
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
         <Providers
           toastProps={{
-            theme: "light",
             toastOptions: { className: font.className },
           }}
         >
