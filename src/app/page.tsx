@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ChevronRightIcon, ClapperboardIcon } from "lucide-react";
 
+import { getNowPlayingByCity } from "@/actions/get-now-playing-by-city";
 import { TechStack } from "@/components/tech-stack";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +18,8 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 const Page = async () => {
+  const { movies } = await getNowPlayingByCity("kolkata");
+
   return (
     <main className="container mx-auto px-4 py-8">
       <section className="relative h-full overflow-hidden py-5 md:py-14">
@@ -99,14 +102,9 @@ const Page = async () => {
         </div>
         <Carousel>
           <CarouselContent>
-            {[
-              {
-                title: "Jawan",
-                image: "/jawan-poster.jpg",
-              },
-            ].map((event, index) => (
+            {movies.map((movie) => (
               <CarouselItem
-                key={index}
+                key={movie.slug}
                 className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 2xl:basis-1/5"
               >
                 <Card className="group relative overflow-hidden">
@@ -114,8 +112,8 @@ const Page = async () => {
                     <Image
                       width={1080}
                       height={1280}
-                      src={event.image}
-                      alt={`${event.title} banner`}
+                      src={movie.bannerUrl}
+                      alt={`${movie.title} banner`}
                       className="aspect-[4/5] w-full object-cover"
                       priority
                       quality={100}
@@ -123,7 +121,7 @@ const Page = async () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
                     <div className="absolute bottom-0 left-0 right-0 flex flex-col items-start p-4">
                       <h3 className="mb-2 text-lg font-semibold text-white">
-                        {event.title}
+                        {movie.title}
                       </h3>
                       <Link
                         href="#"

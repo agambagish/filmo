@@ -1,6 +1,9 @@
+import { relations } from "drizzle-orm";
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-export const cities = pgTable("cities", {
+import { movies } from "./movies";
+
+export const languages = pgTable("languages", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   label: text().notNull().unique(),
   slug: text().notNull().unique(),
@@ -10,3 +13,7 @@ export const cities = pgTable("cities", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const languagesRelations = relations(languages, ({ many }) => ({
+  movies: many(movies),
+}));
