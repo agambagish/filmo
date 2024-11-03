@@ -10,12 +10,13 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { NestedProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export const MainNav = () => {
+export const MainNav = ({ city }: NestedProps) => {
   return (
     <div className="hidden gap-6 lg:flex">
-      <Link href="/" className="hidden items-center space-x-2 lg:flex">
+      <Link href={`/${city}`} className="hidden items-center space-x-2 lg:flex">
         <Image
           src="/icon.png"
           alt="icon"

@@ -1,7 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 
-import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
+import { ModalProvider } from "@/providers/modal-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 interface Props extends React.PropsWithChildren {
@@ -22,8 +22,8 @@ export const Providers = ({ children, toastProps }: Props) => {
       disableTransitionOnChange
     >
       <ClerkProvider>
-        <Header />
         {children}
+        <ModalProvider />
         <Toaster richColors {...toastProps} />
       </ClerkProvider>
     </ThemeProvider>

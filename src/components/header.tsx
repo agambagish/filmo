@@ -8,14 +8,15 @@ import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Search } from "@/components/search";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { NestedProps } from "@/lib/types";
 
-export const Header = async () => {
+export const Header = async ({ city }: NestedProps) => {
   const user = await currentUser();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container mx-auto flex h-16 items-center">
-        <MainNav />
+        <MainNav city={city} />
         <Button
           variant="ghost"
           size="icon"
