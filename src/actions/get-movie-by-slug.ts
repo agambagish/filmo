@@ -8,7 +8,7 @@ import { languages, movies } from "@/db/schema";
 
 export const getMovieBySlug = async (slug: string) => {
   try {
-    const data = await db
+    const movie = await db
       .select({
         title: movies.title,
         slug: movies.slug,
@@ -25,9 +25,9 @@ export const getMovieBySlug = async (slug: string) => {
       .leftJoin(languages, eq(movies.languageId, languages.id))
       .where(eq(movies.slug, slug));
 
-    const nonNullableMovie = makeDataNonNullable(data);
-    return nonNullableMovie[0];
+    const nonNullableMovie = makeDataNonNullable(movie);
+    return { movie: nonNullableMovie[0] };
   } catch {
-    return undefined;
+    return { movie: undefined };
   }
 };

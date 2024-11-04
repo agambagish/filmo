@@ -33,7 +33,7 @@ interface Props {
 
 const Page = async ({ params }: Props) => {
   const { city, slug } = await params;
-  const movie = await getMovieBySlug(slug);
+  const { movie } = await getMovieBySlug(slug);
 
   if (!movie) {
     notFound();
@@ -129,7 +129,7 @@ const Page = async ({ params }: Props) => {
             </Carousel>
           </div>
           <Link
-            href={`/${city}/movies/${slug}/shows`}
+            href={`/${city}/movies/${slug}/showtimes`}
             className={cn(
               "mt-4 w-full",
               buttonVariants({

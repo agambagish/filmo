@@ -16,13 +16,13 @@ export const moviesToCinemas = pgTable(
   "movies_to_cinemas",
   {
     uid: serial().notNull().unique(),
-    movieId: integer().notNull(),
+    movieSlug: text().notNull(),
     cinemaId: integer().notNull(),
     citySlug: text().notNull(),
   },
   (t) => ({
     pk: primaryKey({
-      columns: [t.uid, t.movieId, t.cinemaId, t.citySlug],
+      columns: [t.uid, t.movieSlug, t.cinemaId, t.citySlug],
     }),
   })
 );
@@ -35,8 +35,8 @@ export const moviesToCinemasRelations = relations(
       references: [cinemas.id],
     }),
     movie: one(movies, {
-      fields: [moviesToCinemas.movieId],
-      references: [movies.id],
+      fields: [moviesToCinemas.movieSlug],
+      references: [movies.slug],
     }),
     city: one(cities, {
       fields: [moviesToCinemas.citySlug],

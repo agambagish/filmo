@@ -15,7 +15,7 @@ export const getNowPlayingByCity = async (citySlug: string) => {
         bannerUrl: _movies.bannerUrl,
       })
       .from(moviesToCinemas)
-      .leftJoin(_movies, eq(moviesToCinemas.movieId, _movies.id))
+      .leftJoin(_movies, eq(moviesToCinemas.movieSlug, _movies.slug))
       .where(eq(moviesToCinemas.citySlug, citySlug));
 
     return { movies: makeDataNonNullable(movies) };

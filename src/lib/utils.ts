@@ -25,6 +25,17 @@ export const formatDate = (
   }).format(parsedDate);
 };
 
+export const formatTime = (
+  date: Date | string | number,
+  opts: Intl.DateTimeFormatOptions = {}
+) =>
+  new Intl.DateTimeFormat("en-IN", {
+    hour: opts.hour ?? "2-digit",
+    minute: opts.minute ?? "2-digit",
+    hour12: opts.hour12 ?? true,
+    ...opts,
+  }).format(new Date(date));
+
 export const getUserEmail = (user: User | null) => {
   const email =
     user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)
@@ -38,4 +49,31 @@ export const formatPGTime = (time: string) => {
   const formattedTime = format(timeAsDate, "H'h' m'm'");
 
   return formattedTime;
+};
+
+export const getNext7Days = () => {
+  const today = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+  };
+  const dates = [];
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+
+    const formattedDate = date.toLocaleDateString("en-US", options);
+    const [day, month, dayNum] = formattedDate.split(" ");
+
+    dates.push({
+      day: day.replace(",", "").toUpperCase(),
+      date: dayNum,
+      month: month.toUpperCase(),
+      datetime: date,
+    });
+  }
+
+  return dates;
 };
