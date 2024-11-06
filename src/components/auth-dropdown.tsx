@@ -1,6 +1,4 @@
-"use client";
-
-import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 import {
   ClerkLoaded,
@@ -13,6 +11,8 @@ import {
 import { User } from "@clerk/nextjs/server";
 import { Loader2Icon, LogOutIcon } from "lucide-react";
 
+import { getCinemaByUserId } from "@/actions/get-cinema-by-user-id";
+import { CinemaDropdownMenuItem } from "@/components/cinema-dropdown-menu-item";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -32,8 +32,6 @@ interface Props {
 }
 
 export const AuthDropdown = ({ user, city }: Props) => {
-  const pathname = usePathname();
-
   const initials = `${user?.firstName?.charAt(0) ?? ""} ${
     user?.lastName?.charAt(0) ?? ""
   }`;
@@ -64,8 +62,8 @@ export const AuthDropdown = ({ user, city }: Props) => {
         <SignedOut>
           <SignInButton
             mode="modal"
-            forceRedirectUrl={pathname}
-            signUpForceRedirectUrl={pathname}
+            forceRedirectUrl={`/${city}`}
+            signUpForceRedirectUrl={`/${city}`}
           >
             <Button className="w-[4.5rem]">Sign In</Button>
           </SignInButton>
@@ -91,6 +89,16 @@ export const AuthDropdown = ({ user, city }: Props) => {
                   </p>
                 </div>
               </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Suspense
+                fallback={
+                  <div className="flex flex-col space-y-1.5 p-1">
+                    <Skeleton className="h-6 w-full rounded-sm" />
+                  </div>
+                }
+              >
+                <CinemaDropdownMenuItem cinemaPromise={getCinemaByUserId()} />
+              </Suspense>
               <DropdownMenuSeparator />
               <SignOutButton redirectUrl={`/${city}`}>
                 <DropdownMenuItem>
