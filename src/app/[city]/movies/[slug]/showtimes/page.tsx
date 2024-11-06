@@ -6,12 +6,14 @@ import {
   HeartIcon,
   InfoIcon,
 } from "lucide-react";
+import { type SearchParams } from "nuqs/server";
 
 import { getCinemasByMovieSlug } from "@/actions/get-cinemas-by-movie-slug";
 import { DateFilter } from "@/components/date-filter";
 import { TopActionBar } from "@/components/top-action-bar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { showtimesPageParams } from "@/lib/showtimes-page-params";
 import { cn, formatTime } from "@/lib/utils";
 
 interface Props {
@@ -19,18 +21,16 @@ interface Props {
     slug: string;
     city: string;
   };
-  searchParams: {
-    [key: string]: string | undefined;
-  };
+  searchParams: Promise<SearchParams>;
 }
 
 const Page = async ({ params, searchParams }: Props) => {
   const { city, slug } = await params;
-  const { date } = await searchParams;
+  const { date } = showtimesPageParams.parse(await searchParams);
 
   const { cinemas } = await getCinemasByMovieSlug(
     { city, slug },
-    { date: new Date(date ?? ""), perPageLimit: 1 }
+    { date, perPageLimit: 1 }
   );
 
   return (

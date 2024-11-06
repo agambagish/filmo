@@ -8,9 +8,12 @@ import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Search } from "@/components/search";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { NestedProps } from "@/lib/types";
 
-export const Header = async ({ city }: NestedProps) => {
+interface Props {
+  city: string;
+}
+
+export const Header = async ({ city }: Props) => {
   const user = await currentUser();
 
   return (
