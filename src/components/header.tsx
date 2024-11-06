@@ -41,7 +41,7 @@ export const Header = async ({ city }: Props) => {
               <GithubIcon className="size-4" />
             </Link>
             <ModeToggle />
-            <AuthDropdown user={user} />
+            <AuthDropdown user={JSON.parse(JSON.stringify(user))} city={city} />
           </nav>
         </div>
       </div>
