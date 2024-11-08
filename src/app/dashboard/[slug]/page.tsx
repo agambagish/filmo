@@ -1,13 +1,5 @@
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
-const Page = async ({ params }: Props) => {
-  const { slug } = await params;
-
-  return <p>{slug}</p>;
+const Page = () => {
+  return <p>HEllo dashboard</p>;
 };
 
 export default Page;

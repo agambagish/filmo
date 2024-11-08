@@ -85,3 +85,7 @@ export const slugify = (str: string) => {
     .replace(/[^\w-]+/g, "")
     .replace(/--+/g, "-");
 };
+
+export const unslugify = (str: string) => {
+  return str.replace(/-/g, " ");
+};

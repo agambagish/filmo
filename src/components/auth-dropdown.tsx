@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -90,15 +88,7 @@ export const AuthDropdown = ({ user, city }: Props) => {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Suspense
-                fallback={
-                  <div className="flex flex-col space-y-1.5 p-1">
-                    <Skeleton className="h-6 w-full rounded-sm" />
-                  </div>
-                }
-              >
-                <CinemaDropdownMenuItem cinemaPromise={getCinemaByUserId()} />
-              </Suspense>
+              <CinemaDropdownMenuItem cinemaPromise={getCinemaByUserId()} />
               <DropdownMenuSeparator />
               <SignOutButton redirectUrl={`/${city}`}>
                 <DropdownMenuItem>

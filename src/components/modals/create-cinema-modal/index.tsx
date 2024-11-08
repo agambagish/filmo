@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, use, useState } from "react";
+import { use, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
@@ -29,7 +29,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { insertCinemaSchema } from "@/db/schema/cinemas";
 
@@ -105,45 +104,36 @@ export const CreateCinemaModal = ({ supportedCitiesPromise }: Props) => {
                 />
               </div>
               <div className="col-span-6">
-                <Suspense
-                  fallback={
-                    <div className="flex flex-col space-y-4">
-                      <Skeleton className="h-4 w-12" />
-                      <Skeleton className="h-10 w-full" />
-                    </div>
-                  }
-                >
-                  <FormField
-                    control={form.control}
-                    name="citySlug"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>City</FormLabel>
-                        <Select
-                          disabled={isLoading}
-                          value={field.value}
-                          onValueChange={(value) => field.onChange(value)}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select city..." />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectGroup>
-                              {supportedCities.map((city) => (
-                                <SelectItem key={city.id} value={city.slug}>
-                                  {city.label}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </Suspense>
+                <FormField
+                  control={form.control}
+                  name="citySlug"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <Select
+                        disabled={isLoading}
+                        value={field.value}
+                        onValueChange={(value) => field.onChange(value)}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select city..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectGroup>
+                            {supportedCities.map((city) => (
+                              <SelectItem key={city.id} value={city.slug}>
+                                {city.label}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
             <FormField
