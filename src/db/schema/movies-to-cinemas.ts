@@ -22,7 +22,7 @@ export const moviesToCinemas = pgTable(
   },
   (t) => ({
     pk: primaryKey({
-      columns: [t.uid, t.movieSlug, t.cinemaId, t.citySlug],
+      columns: [t.movieSlug, t.cinemaId, t.citySlug],
     }),
   })
 );

@@ -1,6 +1,7 @@
 import { getNowPlayingByCinemaSlug } from "@/actions/get-now-playing-by-cinema-slug";
 import { DataTable } from "@/components/data-table";
 
+import { AddButton } from "./add-button";
 import { columns } from "./columns";
 
 interface Props {
@@ -15,7 +16,12 @@ const Page = async ({ params }: Props) => {
 
   return (
     <div className="lg:px-24">
-      <DataTable columns={columns} data={movies} filterableColumn="title" />
+      <DataTable
+        columns={columns}
+        data={movies}
+        filterableColumn="title"
+        actionMenuChildren={<AddButton />}
+      />
     </div>
   );
 };

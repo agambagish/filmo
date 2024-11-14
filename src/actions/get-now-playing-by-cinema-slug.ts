@@ -9,7 +9,7 @@ import { cinemas, languages, movies, moviesToCinemas } from "@/db/schema";
 interface ReturnType {
   movies: (Pick<
     typeof movies.$inferSelect,
-    "title" | "certificate" | "duration" | "releaseDate"
+    "title" | "slug" | "certificate" | "duration" | "releaseDate"
   > & { language: string })[];
 }
 
@@ -21,6 +21,7 @@ export const getNowPlayingByCinemaSlug = async (
       const data = await tx
         .select({
           title: movies.title,
+          slug: movies.slug,
           certificate: movies.certificate,
           language: languages.label,
           duration: movies.duration,
