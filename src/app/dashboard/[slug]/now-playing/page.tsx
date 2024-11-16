@@ -15,14 +15,14 @@ const Page = async ({ params }: Props) => {
   const { movies } = await getNowPlayingByCinemaSlug(slug);
 
   return (
-    <div className="lg:px-24">
+    <main className="lg:px-24">
       <DataTable
         columns={columns}
         data={movies}
         filterableColumn="title"
         actionMenuChildren={<AddButton />}
       />
-    </div>
+    </main>
   );
 };
 

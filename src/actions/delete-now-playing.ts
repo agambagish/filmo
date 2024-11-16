@@ -15,7 +15,7 @@ export const deleteNowPlaying = async (movieSlug: string) => {
       where: eq(cinemas.ownerId, userId ?? ""),
     });
 
-    const deletedNowPlaying = await db
+    const [deletedNowPlaying] = await db
       .delete(moviesToCinemas)
       .where(
         and(

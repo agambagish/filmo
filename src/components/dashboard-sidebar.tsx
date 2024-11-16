@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { User } from "@clerk/nextjs/server";
 import {
+  AlarmClockIcon,
   BadgeCheckIcon,
   BellIcon,
   ChevronsUpDownIcon,
@@ -65,6 +66,11 @@ const data = {
       name: "Now Playing",
       slug: "now-playing",
       icon: PopcornIcon,
+    },
+    {
+      name: "Showtimes",
+      slug: "showtimes",
+      icon: AlarmClockIcon,
     },
     {
       name: "Screens",
